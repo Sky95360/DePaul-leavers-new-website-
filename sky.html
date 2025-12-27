@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>De-Paul Leavers | Sky</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(135deg,#020024,#090979,#00d4ff);
+  color:white;
+}
+header{
+  text-align:center;
+  padding:40px;
+  background:radial-gradient(circle,#00ffe7,#000);
+  box-shadow:0 0 40px #00ffe7;
+}
+section{padding:30px;}
+.card{
+  background:rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:25px;
+  box-shadow:0 0 25px rgba(0,255,255,.4);
+}
+select,input,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+}
+button{
+  background:#00ffe7;
+  font-weight:bold;
+  cursor:pointer;
+}
+#chat{
+  height:200px;
+  overflow-y:auto;
+  background:black;
+  padding:10px;
+  border-radius:10px;
+}
+footer{
+  text-align:center;
+  padding:20px;
+  background:black;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>✨ De-Paul Leavers ✨</h1>
+  <p>Real Interactive & AI-Powered Website</p>
+</header>
+
+<section class="card">
+<h2>👥 Members Combo Box</h2>
+<select id="members" onchange="showMeaning()">
+<option value="">Select member</option>
+<option>Dossa</option>
+<option>Gunusi</option>
+<option>Doreen</option>
+<option>Princess</option>
+<option>Yusto</option>
+<option>Inocensia</option>
+<option>Sky_b.o.y</option>
+<option>Nancy Mlowe</option>
+<option>Alex</option>
+<option>Abel</option>
+<option>Collin</option>
+<option>Jolison</option>
+<option>Michael</option>
+<option>Visent</option>
+<option>Gevan</option>
+<option>Samwel</option>
+<option>Mwaimu</option>
+<option>Unknown 1</option>
+<option>Unknown 2</option>
+</select>
+<p id="meaning"></p>
+</section>
+
+<section class="card">
+<h2>🤖 Real AI Chat</h2>
+<div id="chat"></div>
+<input id="msg" placeholder="Ask the AI...">
+<button onclick="send()">Send</button>
+</section>
+
+<section class="card">
+<h2>📱 QR Code</h2>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=DePaulLeavers">
+</section>
+
+<footer>
+<p>📧 Sky649957@gmail.com</p>
+</footer>
+
+<script>
+const meanings={
+"Dossa":"Member of De-Paul Leavers. Strength.",
+"Gunusi":"Member of De-Paul Leavers. Determination.",
+"Doreen":"Gift.",
+"Princess":"Royal confidence.",
+"Yusto":"Justice.",
+"Inocensia":"Purity.",
+"Sky_b.o.y":"Freedom & vision.",
+"Nancy Mlowe":"Grace.",
+"Alex":"Defender.",
+"Abel":"Life.",
+"Collin":"Young warrior.",
+"Jolison":"Joy.",
+"Michael":"Strength.",
+"Visent":"Victory.",
+"Gevan":"Growth.",
+"Samwel":"God has heard.",
+"Mwaimu":"Teacher.",
+"Unknown 1":"Hidden potential.",
+"Unknown 2":"Future identity."
+};
+
+function showMeaning(){
+  const m=document.getElementById("members").value;
+  document.getElementById("meaning").innerText=meanings[m]||"";
+}
+
+async function send(){
+  const msg=document.getElementById("msg");
+  const chat=document.getElementById("chat");
+  chat.innerHTML+=`<p><b>You:</b> ${msg.value}</p>`;
+  const res=await fetch("/chat",{method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({message:msg.value})
+  });
+  const data=await res.json();
+  chat.innerHTML+=`<p><b>AI:</b> ${data.reply}</p>`;
+  msg.value="";
+}
+</script>
+
+</body>
+  </html>
